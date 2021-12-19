@@ -41,6 +41,15 @@ class AudioHandlerJustAudio extends BaseAudioHandler
   }
 
   @override
+  Future<void> playMediaItem(MediaItem mediaItem) async {
+    await _prepareMediaItem(
+        mediaItem.extras ?? {},
+        Uri.parse(mediaItem.id),
+        mediaItem);
+    await _player.play();
+  }
+
+  @override
   Future<void> prepareFromMediaId(String mediaId,
       [Map<String, dynamic>? extras]) async {
     if (_isPlaying(mediaId, extras)) return;
